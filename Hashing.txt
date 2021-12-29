@@ -1,0 +1,40 @@
+import java.nio.file.Files;
+import java.io.*;
+import java.security.*;
+
+
+/*
+        MessageDigest Class Supports Following Hashing Algorithms
+
+            MD2
+            MD5
+            SHA-1
+            SHA-224
+            SHA-256
+            SHA-384
+            SHA-512
+
+        %02x means print at least 2 digits, prepend it with 0's if there's less. x means convert to hexadecimal.
+*/
+
+public class Hashing
+{
+    public static void main(String[] args) throws Exception
+    {
+        File f=new File("D:\\example.txt");
+        byte[] fileContent = Files.readAllBytes(f.toPath());
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(fileContent);
+        byte[] hash=md.digest();
+
+        StringBuffer sb=new StringBuffer(2*hash.length);
+
+        for(byte b : hash)
+        {
+            sb.append(String.format("%02x",b&0xff));
+        }
+
+        System.out.println("MD5 Hash is: "+sb.toString());
+    }
+}
